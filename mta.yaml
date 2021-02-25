@@ -1,0 +1,84 @@
+_schema-version: "3.2"
+ID: com-ns-project1
+description: A Fiori application.
+version: 0.0.1
+modules:
+- name: com-ns-project1-app-content
+  type: com.sap.application.content
+  path: .
+  requires:
+  - name: com-ns-project1-html5-repo-host
+    parameters:
+      content-target: true
+  build-parameters:
+    build-result: resources
+    requires:
+    - artifacts:
+      - comnsproject1.zip
+      name: comnsproject1
+      target-path: resources/
+- name: comnsproject1
+  type: html5
+  path: .
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
+    supported-platforms: []
+- name: com-ns-project1-destination-content
+  type: com.sap.application.content
+  requires:
+  - name: com-ns-project1-destination-service
+    parameters:
+      content-target: true
+  - name: com-ns-project1-html5-repo-host
+    parameters:
+      service-key:
+        name: com-ns-project1-html5-repo-host-key
+  - name: uaa_com-ns-project1
+    parameters:
+      service-key:
+        name: uaa_com-ns-project1-key
+  parameters:
+    content:
+      instance:
+        destinations:
+        - Name: basic_service_com_ns_project1_html5_repo_host
+          ServiceInstanceName: com-ns-project1-html5-repo-host
+          ServiceKeyName: com-ns-project1-html5-repo-host-key
+          sap.cloud.service: basic.service
+        - Authentication: OAuth2UserTokenExchange
+          Name: basic_service_uaa_com_ns_project1
+          ServiceInstanceName: com-ns-project1-xsuaa-service
+          ServiceKeyName: uaa_com-ns-project1-key
+          sap.cloud.service: basic.service
+        existing_destinations_policy: ignore
+  build-parameters:
+    no-source: true
+resources:
+- name: com-ns-project1-html5-repo-host
+  type: org.cloudfoundry.managed-service
+  parameters:
+    service: html5-apps-repo
+    service-plan: app-host
+- name: com-ns-project1-destination-service
+  type: org.cloudfoundry.managed-service
+  parameters:
+    config:
+      HTML5Runtime_enabled: true
+      version: 1.0.0
+    service: destination
+    service-name: com-ns-project1-destination-service
+    service-plan: lite
+- name: uaa_com-ns-project1
+  type: org.cloudfoundry.managed-service
+  parameters:
+    path: ./xs-security.json
+    service: xsuaa
+    service-name: com-ns-project1-xsuaa-service
+    service-plan: application
+parameters:
+  deploy_mode: html5-repo
+  enable-parallel-deployments: true
