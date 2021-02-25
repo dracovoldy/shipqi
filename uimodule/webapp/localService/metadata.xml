@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="1.0" xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx" xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns:sap="http://www.sap.com/Protocols/SAPData">
+    <edmx:Reference Uri="https://abc.com:44317/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_COMMON',Version='0001',SAP__Origin='LOCAL')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="com.sap.vocabularies.Common.v1" Alias="Common"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://abc.com:44317/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_CAPABILITIES',Version='0001',SAP__Origin='LOCAL')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="Org.OData.Capabilities.V1" Alias="Capabilities"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://abc.com:44317/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_COMMUNICATION',Version='0001',SAP__Origin='LOCAL')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="com.sap.vocabularies.Communication.v1" Alias="Communication"/>
+    </edmx:Reference>
+    <edmx:DataServices m:DataServiceVersion="2.0">
+        <Schema Namespace="ZIINSP_LOT_MAT_SRV" xml:lang="en" sap:schema-version="1" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+            <EntityType Name="ZC_MaterialPK1Type" sap:label="Material Stock" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="prueflos"/>
+                    <PropertyRef Name="matnr"/>
+                    <PropertyRef Name="mblnr"/>
+                    <PropertyRef Name="werk"/>
+                    <PropertyRef Name="Quantity"/>
+                    <PropertyRef Name="ebeln"/>
+                    <PropertyRef Name="ebelp"/>
+                    <PropertyRef Name="charg"/>
+                    <PropertyRef Name="losmenge"/>
+                    <PropertyRef Name="mengeneinh"/>
+                    <PropertyRef Name="lagortchrg"/>
+                </Key>
+                <Property Name="prueflos" Type="Edm.String" Nullable="false" MaxLength="12" sap:display-format="NonNegative" sap:label="Inspection Lot" sap:quickinfo="Inspection Lot Number"/>
+                <Property Name="matnr" Type="Edm.String" Nullable="false" MaxLength="40" sap:display-format="UpperCase" sap:label="Material" sap:quickinfo="Material Number"/>
+                <Property Name="mblnr" Type="Edm.String" Nullable="false" MaxLength="10" sap:display-format="UpperCase" sap:label="Material Document" sap:quickinfo="Number of Material Document"/>
+                <Property Name="werk" Type="Edm.String" Nullable="false" MaxLength="4" sap:display-format="UpperCase" sap:label="Plant"/>
+                <Property Name="Quantity" Type="Edm.String" Nullable="false" MaxLength="20"/>
+                <Property Name="ebeln" Type="Edm.String" Nullable="false" MaxLength="10" sap:display-format="UpperCase" sap:label="Purchasing Document" sap:quickinfo="Purchasing Document Number"/>
+                <Property Name="ebelp" Type="Edm.String" Nullable="false" MaxLength="5" sap:display-format="NonNegative" sap:label="Item" sap:quickinfo="Item Number of Purchasing Document"/>
+                <Property Name="charg" Type="Edm.String" Nullable="false" MaxLength="10" sap:display-format="UpperCase" sap:label="Batch" sap:quickinfo="Batch Number"/>
+                <Property Name="losmenge" Type="Edm.Decimal" Nullable="false" Precision="13" Scale="3" sap:unit="mengeneinh" sap:label="Insp. Lot Quantity" sap:quickinfo="Inspection Lot Quantity"/>
+                <Property Name="mengeneinh" Type="Edm.String" Nullable="false" MaxLength="3" sap:label="Base Unit of Measure" sap:quickinfo="Base Unit of Measure for Inspection Lot Quantity" sap:semantics="unit-of-measure"/>
+                <Property Name="lagortchrg" Type="Edm.String" Nullable="false" MaxLength="4" sap:display-format="UpperCase" sap:label="Storage location"/>
+                <Property Name="herkunft" Type="Edm.String" MaxLength="2" sap:display-format="UpperCase" sap:label="Insp. Lot Origin" sap:quickinfo="Inspection Lot Origin"/>
+                <Property Name="art" Type="Edm.String" MaxLength="8" sap:display-format="UpperCase" sap:label="Inspection Type"/>
+                <Property Name="Criticality3" Type="Edm.Byte"/>
+                <Property Name="status" Type="Edm.String" MaxLength="13" sap:display-format="UpperCase"/>
+                <Property Name="objnr" Type="Edm.String" MaxLength="22" sap:display-format="UpperCase" sap:label="Object number"/>
+                <Property Name="Criticality" Type="Edm.Byte"/>
+                <Property Name="BatchStatus" Type="Edm.String" MaxLength="40" sap:display-format="UpperCase" sap:label="Stock Segment"/>
+                <Property Name="Criticality1" Type="Edm.Byte"/>
+                <Property Name="QualityCertificate" Type="Edm.String" MaxLength="40" sap:display-format="UpperCase" sap:label="Original material" sap:quickinfo="Original material    (deactivated)"/>
+                <Property Name="INSPLOTSTATUS" Type="Edm.String" MaxLength="5" sap:display-format="UpperCase"/>
+                <NavigationProperty Name="to_MaterialPlant" Relationship="ZIINSP_LOT_MAT_SRV.assoc_627C2BC7B7FC4F07F2776E438A05955C" FromRole="FromRole_assoc_627C2BC7B7FC4F07F2776E438A05955C" ToRole="ToRole_assoc_627C2BC7B7FC4F07F2776E438A05955C"/>
+            </EntityType>
+            <EntityType Name="ZI_MaterialPlantPK1Type" sap:label="Material Plant" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="prueflos"/>
+                    <PropertyRef Name="vorglfnr"/>
+                    <PropertyRef Name="merknr"/>
+                </Key>
+                <Property Name="prueflos" Type="Edm.String" Nullable="false" MaxLength="12" sap:display-format="NonNegative" sap:label="Inspection Lot" sap:quickinfo="Inspection Lot Number"/>
+                <Property Name="vorglfnr" Type="Edm.String" Nullable="false" MaxLength="8" sap:display-format="NonNegative" sap:label="Current Node No." sap:quickinfo="Current Node Number from Order Counter"/>
+                <Property Name="merknr" Type="Edm.String" Nullable="false" MaxLength="4" sap:display-format="NonNegative" sap:label="Insp. Characteristic" sap:quickinfo="Inspection Characteristic Number"/>
+                <Property Name="kurztext" Type="Edm.String" MaxLength="40" sap:label="Short Text" sap:quickinfo="Short Text for the Inspection Characteristic"/>
+                <Property Name="ktx01" Type="Edm.String" MaxLength="40" sap:label="Short Text" sap:quickinfo="Short Description of the Selected Set"/>
+                <Property Name="valuation" Type="Edm.String" MaxLength="12" sap:display-format="UpperCase"/>
+            </EntityType>
+            <Association Name="assoc_627C2BC7B7FC4F07F2776E438A05955C" sap:content-version="1">
+                <End Type="ZIINSP_LOT_MAT_SRV.ZC_MaterialPK1Type" Multiplicity="1" Role="FromRole_assoc_627C2BC7B7FC4F07F2776E438A05955C"/>
+                <End Type="ZIINSP_LOT_MAT_SRV.ZI_MaterialPlantPK1Type" Multiplicity="*" Role="ToRole_assoc_627C2BC7B7FC4F07F2776E438A05955C"/>
+            </Association>
+            <EntityContainer Name="ZIINSP_LOT_MAT_SRV_Entities" m:IsDefaultEntityContainer="true" sap:supported-formats="atom json xlsx">
+                <EntitySet Name="ZC_MaterialPK1" EntityType="ZIINSP_LOT_MAT_SRV.ZC_MaterialPK1Type" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="ZI_MaterialPlantPK1" EntityType="ZIINSP_LOT_MAT_SRV.ZI_MaterialPlantPK1Type" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <AssociationSet Name="assoc_627C2BC7B7FC4F07F2776E438A05955C" Association="ZIINSP_LOT_MAT_SRV.assoc_627C2BC7B7FC4F07F2776E438A05955C" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="ZC_MaterialPK1" Role="FromRole_assoc_627C2BC7B7FC4F07F2776E438A05955C"/>
+                    <End EntitySet="ZI_MaterialPlantPK1" Role="ToRole_assoc_627C2BC7B7FC4F07F2776E438A05955C"/>
+                </AssociationSet>
+                <FunctionImport Name="CreateSto" ReturnType="ZIINSP_LOT_MAT_SRV.ZC_MaterialPK1Type" EntitySet="ZC_MaterialPK1" m:HttpMethod="PUT">
+                    <Parameter Name="prueflos" Type="Edm.String" Mode="In" MaxLength="12"/>
+                    <Parameter Name="mblnr" Type="Edm.String" Mode="In" MaxLength="10"/>
+                    <Parameter Name="werk" Type="Edm.String" Mode="In" MaxLength="4"/>
+                    <Parameter Name="lagortchrg" Type="Edm.String" Mode="In" MaxLength="4"/>
+                    <Parameter Name="charg" Type="Edm.String" Mode="In" MaxLength="10"/>
+                    <Parameter Name="matnr" Type="Edm.String" Mode="In" MaxLength="40"/>
+                    <Parameter Name="losmenge" Type="Edm.String" Mode="In" MaxLength="11"/>
+                    <Parameter Name="mengeneinh" Type="Edm.String" Mode="In" MaxLength="3"/>
+                    <Parameter Name="ebelp" Type="Edm.String" Mode="In" MaxLength="5"/>
+                    <Parameter Name="TargetPlant" Type="Edm.String" Mode="In" MaxLength="4"/>
+                    <Parameter Name="ebeln" Type="Edm.String" Mode="In" MaxLength="10"/>
+                </FunctionImport>
+            </EntityContainer>
+            <Annotations Target="ZIINSP_LOT_MAT_SRV.ZIINSP_LOT_MAT_SRV_Entities/ZC_MaterialPK1" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Capabilities.FilterRestrictions">
+                    <Record>
+                        <PropertyValue Property="FilterExpressionRestrictions">
+                            <Collection>
+                                <Record>
+                                    <PropertyValue Property="Property" PropertyPath="Quantity"/>
+                                    <PropertyValue Property="AllowedExpressions" String="SearchExpression"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.SortRestrictions">
+                    <Record>
+                        <PropertyValue Property="NonSortableProperties">
+                            <Collection>
+                                <PropertyPath>Quantity</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <atom:link rel="self" href="https://abc.com:44317/sap/opu/odata/sap/ZIINSP_LOT_MAT_SRV/$metadata" xmlns:atom="http://www.w3.org/2005/Atom"/>
+            <atom:link rel="latest-version" href="https://abc.com:44317/sap/opu/odata/sap/ZIINSP_LOT_MAT_SRV/$metadata" xmlns:atom="http://www.w3.org/2005/Atom"/>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>
